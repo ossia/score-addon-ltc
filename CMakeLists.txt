@@ -1,0 +1,35 @@
+cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
+
+if(NOT TARGET score_lib_base)
+  include("${SCORE_SOURCE_DIR}/cmake/ScoreExternalAddon.cmake")
+endif()
+
+if(NOT TARGET score_plugin_avnd)
+  return()
+endif()
+
+project(score_addon_ltc LANGUAGES CXX)
+
+score_common_setup()
+
+avnd_score_plugin_init(
+  BASE_TARGET score_addon_ltc
+)
+
+avnd_score_plugin_add(
+  BASE_TARGET score_addon_ltc
+  SOURCES
+    LTC/LTC.hpp
+    LTC/LTCModel.hpp
+    LTC/LTCModel.cpp
+    LTC/LTCUi.hpp
+  TARGET ltc
+  MAIN_CLASS LTC
+  NAMESPACE Example
+)
+
+avnd_score_plugin_finalize(
+  BASE_TARGET score_addon_ltc
+  PLUGIN_VERSION 1
+  PLUGIN_UUID "d62cfa0c-e539-4b8d-aca8-d3674862a5d2"
+)
