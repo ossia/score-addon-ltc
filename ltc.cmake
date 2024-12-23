@@ -12,13 +12,17 @@ endif()
 
 
 if(NOT TARGET ltc)
-    add_library(ltc STATIC
-        "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libltc/src/encoder.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libltc/src/decoder.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libltc/src/ltc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libltc/src/timecode.c"
-    )
-    add_library(ltc::ltc ALIAS ltc)
-    target_include_directories(ltc PUBLIC 3rdparty/libltc/src)
+  add_library(ltc STATIC
+      "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libltc/src/encoder.c"
+      "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libltc/src/decoder.c"
+      "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libltc/src/ltc.c"
+      "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libltc/src/timecode.c"
+  )
+  add_library(ltc::ltc ALIAS ltc)
+  target_include_directories(ltc PUBLIC 3rdparty/libltc/src)
+
+  set_target_properties(ltc PROPERTIES
+    UNITY_BUILD OFF
+  )
 endif()
 
