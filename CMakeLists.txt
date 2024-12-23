@@ -10,6 +10,8 @@ endif()
 
 project(score_addon_ltc LANGUAGES CXX)
 
+include(ltc.cmake)
+
 score_common_setup()
 
 avnd_score_plugin_init(
@@ -20,13 +22,13 @@ avnd_score_plugin_add(
   BASE_TARGET score_addon_ltc
   SOURCES
     LTC/LTC.hpp
-    LTC/LTCModel.hpp
-    LTC/LTCModel.cpp
-    LTC/LTCUi.hpp
-  TARGET ltc
-  MAIN_CLASS LTC
-  NAMESPACE Example
+    LTC/LTC.cpp
+  TARGET ltc_generator
+  MAIN_CLASS LTCGenerator
+  NAMESPACE ao
 )
+
+target_link_libraries(score_addon_ltc PRIVATE ltc::ltc Qt::Core)
 
 avnd_score_plugin_finalize(
   BASE_TARGET score_addon_ltc
