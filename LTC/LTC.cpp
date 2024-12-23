@@ -34,11 +34,11 @@ void LTCGenerator::update()
     auto cur_seconds = m_current_flicks / 705'600'000.;
     auto smpte_offset = this->inputs.offset;
     auto offset = int64_t(cur_seconds + smpte_offset);
-    const int days = std::div(offset, 86400L).quot;
+    const int days = std::div((long long)offset, (long long)86400).quot;
     offset -= days * 86400;
-    const int hours = std::div(offset, 3600L).quot;
+    const int hours = std::div((long long)offset, (long long)3600).quot;
     offset -= hours * 3600;
-    const int minutes = std::div(offset, 60L).quot;
+    const int minutes = std::div((long long)offset, (long long)60).quot;
     offset -= minutes * 60;
     const int seconds = offset;
 
