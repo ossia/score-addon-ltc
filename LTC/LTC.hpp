@@ -14,6 +14,9 @@ namespace ao
 struct LTCGenerator
 {
   halp_meta(name, "LTC Generator")
+  halp_meta(author, "ossia team")
+  halp_meta(category, "Audio/Utilities")
+  halp_meta(manual_url, "https://ossia.io/score-docs/processes/ltc-generator.html")
   halp_meta(c_name, "avnd_ltc_gen")
   halp_meta(uuid, "f87bec01-d2c1-4bdf-bda7-792bc62b0c49")
 
