@@ -10,6 +10,16 @@ void LTCGenerator::prepare(halp::setup setup)
 
 void LTCGenerator::update()
 {
+  if(setup.rate <= 1)
+  {
+    if(m_encoder)
+    {
+      ltc_encoder_free(m_encoder);
+      m_encoder = nullptr;
+    }
+    return;
+  }
+
   double fps = 30.;
   switch(inputs.rate)
   {
@@ -26,9 +36,15 @@ void LTCGenerator::update()
   }
 
   if(!m_encoder)
+  {
     m_encoder = ltc_encoder_create(setup.rate, fps, inputs.rate, 0);
+    SCORE_ASSERT(m_encoder);
+  }
   else
+  {
     ltc_encoder_reinit(m_encoder, setup.rate, fps, inputs.rate, 0);
+    SCORE_ASSERT(m_encoder);
+  }
 
   {
     auto cur_seconds = m_current_flicks / 705'600'000.;
@@ -64,6 +80,9 @@ LTCGenerator::~LTCGenerator()
 
 void LTCGenerator::operator()(halp::tick_flicks tk)
 {
+  if(!m_encoder)
+    return;
+
   m_current_flicks = tk.start_in_flicks;
   // FIXME handle transport
   // FIXME handle live framerate chagne
