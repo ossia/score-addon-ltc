@@ -1,4 +1,7 @@
 #include "LTC.hpp"
+
+#include <cassert>
+
 namespace ao
 {
 
@@ -38,12 +41,12 @@ void LTCGenerator::update()
   if(!m_encoder)
   {
     m_encoder = ltc_encoder_create(setup.rate, fps, inputs.rate, 0);
-    SCORE_ASSERT(m_encoder);
+    assert(m_encoder);
   }
   else
   {
     ltc_encoder_reinit(m_encoder, setup.rate, fps, inputs.rate, 0);
-    SCORE_ASSERT(m_encoder);
+    assert(m_encoder);
   }
 
   {
