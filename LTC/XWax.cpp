@@ -30,7 +30,7 @@ static const char* timecode_names[] = {
 
 XWaxDVS::XWaxDVS()
 {
-  m_timecoder = new struct timecoder{};
+  m_timecoder = new timecoder{};
 }
 
 XWaxDVS::~XWaxDVS()

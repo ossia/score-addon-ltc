@@ -84,7 +84,7 @@ struct XWaxDVS
     halp::val_port<"Position", double> position;
 
     // Raw timecode position in milliseconds (as reported by xwax)
-    halp::val_port<"Timecode", int64_t> timecode;
+    halp::val_port<"Timecode", int> timecode;
 
     // Signal quality (0.0 = no signal, 1.0 = excellent)
     halp::val_port<"Quality", double> quality;
