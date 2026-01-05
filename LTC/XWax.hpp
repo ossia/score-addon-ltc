@@ -31,7 +31,7 @@ struct XWaxDVS
 {
   halp_meta(name, "XWax DVS")
   halp_meta(author, "ossia team")
-  halp_meta(category, "Audio/Analysis")
+  halp_meta(category, "Audio/Timing")
   halp_meta(manual_url, "https://ossia.io/score-docs/processes/xwax-dvs.html")
   halp_meta(c_name, "avnd_xwax_dvs")
   halp_meta(uuid, "e826a777-9c77-4fa5-a0e9-24ccf177a25c")

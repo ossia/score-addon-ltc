@@ -38,6 +38,16 @@ avnd_score_plugin_add(
   MAIN_CLASS XWaxDVS
   NAMESPACE ao
 )
+
+avnd_score_plugin_add(
+  BASE_TARGET score_addon_ltc
+  SOURCES
+    LTC/LTCInput.hpp
+  TARGET ltc_input
+  MAIN_CLASS LTCInput
+  NAMESPACE ao
+)
+
 target_link_libraries(score_addon_ltc PRIVATE ltc::ltc xwax::xwax Qt::Core)
 
 avnd_score_plugin_finalize(
