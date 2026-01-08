@@ -62,6 +62,15 @@ struct XWaxDVS
     AlphaBeta
   };
 
+  enum class OutputFormat
+  {
+    Seconds,
+    Milliseconds,
+    Microseconds,
+    Nanoseconds,
+    Flicks
+  };
+
   struct
   {
     halp::dynamic_audio_bus<"Timecode", double> audio;
@@ -70,21 +79,22 @@ struct XWaxDVS
     halp::enum_t<PitchFilter, "Pitch Filter"> pitch_filter;
     halp::knob_f32<"Lead-in", halp::range{0.f, 60.f, 0.f}> leadin;
     halp::spinbox_f32<"Tempo", halp::range{0.f, 300.f, 120.f}> tempo;
+    halp::combobox_t<"Output Format", OutputFormat> format{OutputFormat::Seconds};
   } inputs;
 
   struct
   {
+    // Absolute position in seconds (from start of timecode, accounting for lead-in)
+    halp::val_port<"Timecode", double> position;
+
+    // Raw timecode position in milliseconds (as reported by xwax)
+    halp::val_port<"Raw timecode", int> timecode;
+
     // Relative speed/pitch (-N to +N, 1.0 = normal forward, -1.0 = normal reverse)
     halp::val_port<"Speed", double> speed;
 
     // Speed * input tempo
     halp::val_port<"Tempo", double> tempo;
-
-    // Absolute position in seconds (from start of timecode, accounting for lead-in)
-    halp::val_port<"Position", double> position;
-
-    // Raw timecode position in milliseconds (as reported by xwax)
-    halp::val_port<"Timecode", int> timecode;
 
     // Signal quality (0.0 = no signal, 1.0 = excellent)
     halp::val_port<"Quality", double> quality;
@@ -105,6 +115,25 @@ private:
   // Initialize or reinitialize the timecoder with current settings
   void init_timecoder();
   void clear_timecoder();
+
+  double convert_output(double seconds) const
+  {
+    switch(inputs.format.value)
+    {
+      case OutputFormat::Seconds:
+        return seconds;
+      case OutputFormat::Milliseconds:
+        return seconds * 1000.0;
+      case OutputFormat::Microseconds:
+        return seconds * 1e6;
+      case OutputFormat::Nanoseconds:
+        return seconds * 1e9;
+      case OutputFormat::Flicks:
+        return seconds * 705'600'000.0;
+      default:
+        return seconds;
+    }
+  }
 
   // Get the xwax timecode name for the current vinyl type
   const char* get_timecode_name() const;

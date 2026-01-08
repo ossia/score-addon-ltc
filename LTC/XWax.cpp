@@ -13,19 +13,19 @@ namespace ao
 {
 
 // Timecode format name mapping
-static const char* timecode_names[] = {
-    "serato_2a",     // Serato_2a
-    "serato_2b",     // Serato_2b
-    "serato_cd",     // Serato_CD
-    "traktor_a",     // Traktor_A
-    "traktor_b",     // Traktor_B
-    "traktor_mk2_a", // Traktor_MK2_A
-    "traktor_mk2_b", // Traktor_MK2_B
-    "traktor_mk2_cd",// Traktor_MK2_CD
-    "mixvibes_v2",   // MixVibes_V2
-    "mixvibes_7inch",// MixVibes_7inch
-    "pioneer_a",     // Pioneer_A
-    "pioneer_b",     // Pioneer_B
+static constexpr const char* timecode_names[] = {
+    "serato_2a",      // Serato_2a
+    "serato_2b",      // Serato_2b
+    "serato_cd",      // Serato_CD
+    "traktor_a",      // Traktor_A
+    "traktor_b",      // Traktor_B
+    "traktor_mk2_a",  // Traktor_MK2_A
+    "traktor_mk2_b",  // Traktor_MK2_B
+    "traktor_mk2_cd", // Traktor_MK2_CD
+    "mixvibes_v2",    // MixVibes_V2
+    "mixvibes_7inch", // MixVibes_7inch
+    "pioneer_a",      // Pioneer_A
+    "pioneer_b",      // Pioneer_B
 };
 
 XWaxDVS::XWaxDVS()
@@ -50,8 +50,7 @@ const char* XWaxDVS::get_timecode_name() const
 double XWaxDVS::get_speed_multiplier() const
 {
   // RPM_33 = 1.0, RPM_45 = 1.35
-  using speed_type = std::decay_t<decltype(inputs.speed.value)>;
-  return (inputs.speed.value == static_cast<speed_type>(1)) ? 1.35 : 1.0;
+  return (inputs.speed.value == Speed::RPM_45) ? 1.35 : 1.0;
 }
 
 void XWaxDVS::clear_timecoder()
@@ -218,8 +217,8 @@ void XWaxDVS::operator()(halp::tick_flicks tk)
     // Valid position - convert from milliseconds to seconds and apply lead-in offset
     const double position_sec = static_cast<double>(position_ms) / 1000.0;
     const double leadin_sec = static_cast<double>(inputs.leadin.value);
-    outputs.position = position_sec - leadin_sec;
-    outputs.timecode = position_ms;
+    outputs.position = this->convert_output(position_sec - leadin_sec);
+    outputs.timecode = this->convert_output(position_sec);
     outputs.valid = true;
   }
   else
