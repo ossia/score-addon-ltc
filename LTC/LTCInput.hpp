@@ -23,7 +23,7 @@ struct LTCInput
 {
   halp_meta(name, "LTC Input")
   halp_meta(author, "ossia team")
-  halp_meta(category, "Audio/Timing")
+  halp_meta(category, "Timing/Audio")
   halp_meta(manual_url, "https://ossia.io/score-docs/processes/ltc-input.html")
   halp_meta(c_name, "avnd_ltc_input")
   halp_meta(uuid, "31423401-13d3-4732-92a8-13e9d7aa56db")
