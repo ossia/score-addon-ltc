@@ -24,7 +24,13 @@ endif()
 
 # Object dependencies, linked so they reach the score base target / every back-end.
 add_library(ltc_deps INTERFACE)
-target_link_libraries(ltc_deps INTERFACE ltc::ltc xwax::xwax Qt::Core)
+target_link_libraries(ltc_deps INTERFACE ltc::ltc xwax::xwax)
+# SDK builds provide the Qt headers through score_lib_base instead of a Qt target
+if(TARGET Qt::Core)
+  target_link_libraries(ltc_deps INTERFACE Qt::Core)
+elseif(TARGET Qt6::Core)
+  target_link_libraries(ltc_deps INTERFACE Qt6::Core)
+endif()
 
 avnd_addon_init(NAME score_addon_ltc)
 
