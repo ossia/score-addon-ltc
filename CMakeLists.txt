@@ -33,6 +33,10 @@ endif()
 # Object dependencies, linked so they reach the score base target / every back-end.
 add_library(ltc_deps INTERFACE)
 target_link_libraries(ltc_deps INTERFACE ltc::ltc xwax::xwax)
+# Standalone back-ends compile generated sources (in the build tree) that include
+# the object headers by their in-repo path (e.g. <LTC/LTC.hpp>); carry the addon
+# root so those resolve. Score builds add it via score's own machinery.
+target_include_directories(ltc_deps INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}")
 # SDK builds provide the Qt headers through score_lib_base instead of a Qt target
 if(TARGET Qt::Core)
   target_link_libraries(ltc_deps INTERFACE Qt::Core)
