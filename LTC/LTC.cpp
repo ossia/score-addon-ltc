@@ -1,6 +1,7 @@
 #include "LTC.hpp"
 
 #include <cassert>
+#include <cstdlib>
 
 namespace ao
 {
