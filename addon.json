@@ -1,11 +1,11 @@
 {
   "src": "<url to the .zip file created by the release script>",
-  "name": "My Avnd Effect",
-  "raw_name": "score-addon-my-avnd-effect",
+  "name": "LTC",
+  "raw_name": "score-addon-ltc",
   "version": "1.0",
   "kind": "addon",
-  "short": "Test audio effect add-on",
-  "long": "This addon provides an example audio effect",
+  "short": "LTC",
+  "long": "LTC",
   "small": "https://raw.githubusercontent.com/OSSIA/score-addon-tutorial/master/Deployment/icon.png",
-  "key": "0d0549bf-8e07-4e3c-a67a-00bb6bef5526"
+  "key": "d62cfa0c-e539-4b8d-aca8-d3674862a5d2"
 }
