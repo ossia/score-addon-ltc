@@ -50,6 +50,13 @@ avnd_score_plugin_add(
 
 target_link_libraries(score_addon_ltc PRIVATE ltc::ltc xwax::xwax Qt::Core)
 
+if(COMMAND score_register_license)
+  if(NOT LTC_LIBRARY)
+    score_register_license(libltc URL "https://github.com/x42/libltc" FILES "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libltc/COPYING")
+  endif()
+  score_register_license(xwax URL "https://xwax.org" NOTICES "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/xwax/timecoder.h")
+endif()
+
 avnd_score_plugin_finalize(
   BASE_TARGET score_addon_ltc
   PLUGIN_VERSION 1
