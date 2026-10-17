@@ -14,6 +14,8 @@ jobs:
   score:
     uses: ossia/actions/.github/workflows/score-addon.yml@master
     secrets: inherit
+    with:
+      jit: false
 
   # Build the same object(s) standalone, one artifact per back-end.
   # CATEGORY object (default, no CATEGORY/BACKENDS declared): data / message
